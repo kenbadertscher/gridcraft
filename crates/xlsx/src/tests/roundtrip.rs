@@ -452,7 +452,7 @@ fn full_roundtrip() {
 fn package_structure() {
     let bytes = write_xlsx(&sample()).unwrap();
     let mut z = zip::ZipArchive::new(std::io::Cursor::new(bytes)).unwrap();
-    let names: Vec<String> = (0..z.len()).map(|i| z.name_for_index(i).unwrap().to_string()).collect();
+    let names: Vec<String> = (0..z.len()).map(|i| z.name_for_index(i).unwrap().unwrap().to_string()).collect();
     assert_eq!(names[0], "[Content_Types].xml");
     for n in [
         "_rels/.rels",
